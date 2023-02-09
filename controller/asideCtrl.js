@@ -1,48 +1,44 @@
+const token = require('../api/token');
 module.exports = {
     menu(req,res){
-        data = {
-            {
-                path: '/',
-                name: 'home',
-                label: '首页',
-                icon:'s-home',
-                url: 'Home/Home'
-            },
+        let tokenResult = token.checkToken(req.headers.token)
+        data = [
             {
                 path: '/mall',
                 name: 'mall',
                 label: '商品管理',
-                icon:'video-play',
-                url: 'MallManage/MallManage'
+                icon:'s-goods',
+                component: 'MallManageView'
             },
             {
                 path: '/user',
                 name: 'user',
                 label: '用户管理',
                 icon:'user',
-                url: 'UserManage/userManage'
+                component: 'UserManageView'
             },
             {
+                name: 'other',
                 label: '其他',
-                icon: 'location',
-                children: {
+                icon: 'more',
+                children: [
                     {
                         path: '/page1',
                         name: 'page1',
                         label: '页面1',
                         icon:'setting',
-                        url: 'other/Pageone'
+                        component: 'PageoneView'
                     },
                     {
                         path: '/page2',
                         name: 'page2',
                         label: '页面2',
                         icon:'setting',
-                        url: 'other/Pageotwo'
+                        component: 'PagetwoView'
                     }
-                }
+                ]
             }
-        }
-        res.send(data)
+        ]
+        res.send({data, msg:'成功'})
     }
 }
