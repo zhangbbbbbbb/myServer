@@ -1,44 +1,137 @@
-const token = require('../api/token');
-module.exports = {
-    menu(req,res){
-        let tokenResult = token.checkToken(req.headers.token)
-        data = [
-            {
-                path: '/mall',
-                name: 'mall',
-                label: '商品管理',
-                icon:'s-goods',
-                component: 'MallManageView'
-            },
-            {
-                path: '/user',
-                name: 'user',
-                label: '用户管理',
-                icon:'user',
-                component: 'UserManageView'
-            },
-            {
-                name: 'other',
-                label: '其他',
-                icon: 'more',
-                children: [
-                    {
-                        path: '/page1',
-                        name: 'page1',
-                        label: '页面1',
-                        icon:'setting',
-                        component: 'PageoneView'
-                    },
-                    {
-                        path: '/page2',
-                        name: 'page2',
-                        label: '页面2',
-                        icon:'setting',
-                        component: 'PagetwoView'
+const data = {
+    vip: [
+        {
+            path: '/user',
+            name: 'user',
+            label: '用户管理',
+            icon:'user',
+            component: 'UserView'
+        },
+        {
+            name: 'vedio',
+            label: '视频',
+            icon: 'video-play',
+            children: [
+                {
+                path: '/vedioManage',
+                name: 'vedioManage',
+                label: '管理',
+                icon:'setting',
+                component: {
+                    view: 'manage',
+                    type: 'vedio'
+                }
+                },
+                {
+                path: '/vedioCharts',
+                name: 'vedioCharts',
+                label: '数据',
+                icon:'pie-chart',
+                component: {
+                    view: 'charts',
+                    type: 'vedio'
+                }
+                }
+            ]
+        },
+        {
+            name: 'fans',
+            label: '粉丝',
+            icon: 'view',
+            children: [
+                {
+                path: '/fansManage',
+                name: 'fansManage',
+                label: '管理',
+                icon:'setting',
+                component: {
+                    view: 'manage',
+                    type: 'fans'
+                }
+                },
+                {
+                path: '/fansCharts',
+                name: 'fansCharts',
+                label: '数据',
+                icon:'pie-chart',
+                component: {
+                    view: 'charts',
+                    type: 'fans'
+                }
+                }
+            ]
+        }
+    ],
+    normal: [
+        {
+            path: '/user',
+            name: 'user',
+            label: '用户管理',
+            icon:'user',
+            component: 'UserView'
+        },
+        {
+            name: 'vedio',
+            label: '视频',
+            icon: 'video-play',
+            children: [
+                {
+                    path: '/vedioManage',
+                    name: 'vedioManage',
+                    label: '管理',
+                    icon:'setting',
+                    component: {
+                        view: 'manage',
+                        type: 'vedio'
                     }
-                ]
-            }
-        ]
-        res.send({data, msg:'成功'})
+                },
+                {
+                    path: '/vedioCharts',
+                    name: 'vedioCharts',
+                    label: '数据',
+                    icon:'pie-chart',
+                    component: {
+                        view: 'charts',
+                        type: 'vedio'
+                    },
+                    disabled: true
+                }
+            ]
+        },
+        {
+            name: 'fans',
+            label: '粉丝',
+            icon: 'view',
+            children: [
+                {
+                    path: '/fansManage',
+                    name: 'fansManage',
+                    label: '管理',
+                    icon:'setting',
+                    component: {
+                        view: 'manage',
+                        type: 'fans'
+                    }
+                },
+                {
+                    path: '/fansCharts',
+                    name: 'fansCharts',
+                    label: '数据',
+                    icon:'pie-chart',
+                    component: {
+                        view: 'charts',
+                        type: 'fans'
+                    },
+                    disabled: true
+                }
+            ]
+        }
+    ],
+    visitor: []
+}
+
+module.exports = {
+    getMenu(req, res){        
+        res.send({data: data[req.tokenResult.status], msg:'成功'})
     }
 }
